@@ -29,7 +29,7 @@ jobs:
       shell: pwsh
       run: |
       
-      - name: Azure DevOps NPM
+    - name: Azure DevOps NPM
   # You may pin to the exact commit or the version.
   # uses: ponicode/azure-devops-npm-action@4053172f755545f9635d2e083514c83fb2e41a95
   uses: ponicode/azure-devops-npm-action@1.0.0
