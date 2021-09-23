@@ -66,109 +66,110 @@ build:
     version: # optional
     
     - name: Setup Go environment
-  uses: actions/setup-go@v2.1.4
-  with:
+      uses: actions/setup-go@v2.1.4
+      with:
     # The Go version to download (if necessary) and use. Supports semver spec and ranges.
     go-version: # optional
     # Whether to download only stable versions
     stable: # optional, default is true
     # Used to pull node distributions from go-versions.  Since there's a default, this is typically not supplied by the user.
-    token: # optional, default is ${{ github.token }}
+      token: # optional, default is ${{ github.token }}
     
-    - name: Setup Node.js environment
-  uses: actions/setup-node@v2.4.0
-  with:
+      - name: Setup Node.js environment
+    uses: actions/setup-node@v2.4.0
+    with:
     # Set always-auth in npmrc
-    always-auth: # optional, default is false
+     always-auth: # optional, default is false
     # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
-    node-version: # optional
+     node-version: # optional
     # Target architecture for Node to use. Examples: x86, x64. Will use system architecture by default.
-    architecture: # optional
+     architecture: # optional
     # Set this option if you want the action to check for the latest available version that satisfies the version spec
-    check-latest: # optional
+     check-latest: # optional
     # Optional registry to set up for auth. Will set the registry in a project level .npmrc and .yarnrc file, and set up auth to read in from env.NODE_AUTH_TOKEN
-    registry-url: # optional
+     registry-url: # optional
     # Optional scope for authenticating against scoped registries
-    scope: # optional
+     scope: # optional
     # Used to pull node distributions from node-versions.  Since there's a default, this is typically not supplied by the user.
-    token: # optional, default is ${{ github.token }}
+     token: # optional, default is ${{ github.token }}
     # Used to specify a package manager for caching in the default directory. Supported values: npm, yarn, pnpm
-    cache: # optional
+     cache: # optional
     # Used to specify the path to a dependency file: package-lock.json, yarn.lock, etc. Supports wildcards or a list of file names for caching multiple dependencies.
-    cache-dependency-path: # optional
+     cache-dependency-path: # optional
     # Deprecated. Use node-version instead. Will not be supported after October 1, 2019
-    version: # optional
+     version: # optional
     
-    steps:
-- uses: actions/checkout@v2
-- uses: actions/setup-node@v2
-  with:
-    node-version: '14'
-- run: npm install
-- run: npm test
+     steps:
+     - uses: actions/checkout@v2
+     - uses: actions/setup-node@v2
+       with:
+       node-version: '14'
+     - run: npm install
+     - run: npm test
 
 manifest:
     runs-on: ${{ matrix.os }}
     strategy:
     
-    import * as cache from '@actions/cache';
-import * as core from '@actions/core';
-import * as glob from '@actions/glob';
-import path from 'path';
-import fs from 'fs';
+     import * as cache from '@actions/cache';
+     import * as core from '@actions/core';
+     import * as glob from '@actions/glob';
+     import path from 'path';
+     import fs from 'fs';
 
-import {State, Outputs} from './constants';
-import {
-  getCacheDirectoryPath,
-  getPackageManagerInfo,
-  PackageManagerInfo
-} from './cache-utils';
+     import {State, Outputs} from './constants';
+     import {
+         getCacheDirectoryPath,
+         getPackageManagerInfo,
+         PackageManagerInfo
+         } from './cache-utils';
 
-export const restoreCache = async (
-  packageManager: string,
-  cacheDependencyPath?: string
-) => {
-  const packageManagerInfo = await getPackageManagerInfo(packageManager);
-  if (!packageManagerInfo) {
-    throw new Error(`Caching for '${packageManager}' is not supported`);
-  }
-  const platform = process.env.RUNNER_OS;
+     export const restoreCache = async (
+    packageManager: string,
+    cacheDependencyPath?: string
+        ) => {
+          const packageManagerInfo = await getPackageManagerInfo(packageManager);
+          if (!packageManagerInfo) {
+         throw new Error(`Caching for '${packageManager}' is not supported`);
+        }
+        const platform = process.env.RUNNER_OS;
 
-  const cachePath = await getCacheDirectoryPath(
-    packageManagerInfo,
-    packageManager
-  );
-  const lockFilePath = cacheDependencyPath
+         const cachePath = await getCacheDirectoryPath(
+        packageManagerInfo,
+        packageManager
+      );
+        const lockFilePath = cacheDependencyPath
     ? cacheDependencyPath
     : findLockFile(packageManagerInfo);
-  const fileHash = await glob.hashFiles(lockFilePath);
+      const fileHash = await glob.hashFiles(lockFilePath);
 
-  if (!fileHash) {
-    throw new Error(
+       if (!fileHash) {
+       throw new Error(
       'Some specified paths were not resolved, unable to cache dependencies.'
-    );
-  }
+        );
+         }
 
-  const primaryKey = `node-cache-${platform}-${packageManager}-${fileHash}`;
-  core.debug(`primary key is ${primaryKey}`);
+        const primaryKey = `node-cache-${platform}-${packageManager}-${fileHash}`;
+        core.debug(`primary key is ${primaryKey}`);
 
-  core.saveState(State.CachePrimaryKey, primaryKey);
+        core.saveState(State.CachePrimaryKey, primaryKey);
 
-  const cacheKey = await cache.restoreCache([cachePath], primaryKey);
+         const cacheKey = await cache.restoreCache([cachePath], primaryKey);
 
-  if (!cacheKey) {
-    core.info(`${packageManager} cache is not found`);
-    return;
-  }
+         if (!cacheKey) {
+         core.info(`${packageManager} cache is not found`);
+          return;
+         }
 
-  core.saveState(State.CacheMatchedKey, cacheKey);
-  core.info(`Cache restored from key: ${cacheKey}`);
-};
+        core.saveState(State.CacheMatchedKey, cacheKey);
+        core.info(`Cache restored from key: ${cacheKey}`);
+        
+  };
 
-const findLockFile = (packageManager: PackageManagerInfo) => {
-  let lockFiles = packageManager.lockFilePatterns;
-  const workspace = process.env.GITHUB_WORKSPACE!;
-  const rootContent = fs.readdirSync(workspace);
+              const findLockFile = (packageManager: PackageManagerInfo) => {
+              let lockFiles = packageManager.lockFilePatterns;
+              const workspace = process.env.GITHUB_WORKSPACE!;
+              const rootContent = fs.readdirSync(workspace);
 
   const lockFile = lockFiles.find(item => rootContent.includes(item));
   if (!lockFile) {
