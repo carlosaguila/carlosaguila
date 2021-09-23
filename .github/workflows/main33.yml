@@ -40,11 +40,10 @@ build:
     
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-- name: Setup Node.js environment
-  uses: actions/setup-node@v2.4.0
-  with:
+          
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.4.0
+        with:
     # Set always-auth in npmrc
     always-auth: # optional, default is false
     # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
