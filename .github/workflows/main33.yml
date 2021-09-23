@@ -9,17 +9,16 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
-
- name: CI
-
-
-on:
- 
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    
+    name: 
+    on:
+      
+      push:
+       branches: [ main ]
+      
+      pull_request:
+   
+          branches: [ main ]
 
 
   workflow_dispatch:
