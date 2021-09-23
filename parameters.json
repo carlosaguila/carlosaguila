@@ -2,6 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+
         "dashboards_1e516468_992f_4dac_bb87_34b2b6aeb19a_name": {
             "value": null
         },
@@ -76,6 +77,47 @@
         },
         "dashboards_1df58643_9799_4644_aa7f_1a6be1fbd73b_dashboard_name": {
             "value": null
+
+        "location": {
+            "value": "westeurope"
+        },
+        "applicationGatewayName": {
+            "value": "getaway"
+        },
+        "tier": {
+            "value": "Standard_v2"
+        },
+        "skuSize": {
+            "value": "Standard_v2"
+        },
+        "capacity": {
+            "value": 0
+        },
+        "subnetName": {
+            "value": "default"
+        },
+        "zones": {
+            "value": [
+                "3"
+            ]
+        },
+        "publicIpAddressName": {
+            "value": "aip"
+        },
+        "sku": {
+            "value": "Standard"
+        },
+        "allocationMethod": {
+            "value": "Static"
+        },
+        "publicIpZones": {
+            "value": [
+                "3"
+            ]
+        },
+        "autoScaleMaxCapacity": {
+            "value": 10
+
         }
     }
 }
