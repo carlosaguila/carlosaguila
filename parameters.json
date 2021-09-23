@@ -2,45 +2,44 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "subscriptionId": {
+            "value": "ba4f8743-aeed-45f6-a7e5-2ca0a2b186b0"
+        },
+        "name": {
+            "value": "agentsguidebook"
+        },
         "location": {
-            "value": "westeurope"
+            "value": "Central US"
         },
-        "applicationGatewayName": {
-            "value": "getaway"
+        "hostingPlanName": {
+            "value": "ASP-NetworkWatcherRG-8a42"
         },
-        "tier": {
-            "value": "Standard_v2"
+        "serverFarmResourceGroup": {
+            "value": "NetworkWatcherRG"
         },
-        "skuSize": {
-            "value": "Standard_v2"
+        "alwaysOn": {
+            "value": false
         },
-        "capacity": {
-            "value": 0
-        },
-        "subnetName": {
-            "value": "default"
-        },
-        "zones": {
-            "value": [
-                "3"
-            ]
-        },
-        "publicIpAddressName": {
-            "value": "aip"
+        "storageAccountName": {
+            "value": "storageaccountnetwo9533"
         },
         "sku": {
-            "value": "Standard"
+            "value": "Free"
         },
-        "allocationMethod": {
-            "value": "Static"
+        "skuCode": {
+            "value": "F1"
         },
-        "publicIpZones": {
-            "value": [
-                "3"
-            ]
+        "workerSize": {
+            "value": "0"
         },
-        "autoScaleMaxCapacity": {
-            "value": 10
+        "workerSizeId": {
+            "value": "0"
+        },
+        "numberOfWorkers": {
+            "value": "1"
+        },
+        "use32BitWorkerProcess": {
+            "value": true
         }
     }
 }
