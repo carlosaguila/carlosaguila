@@ -108,7 +108,8 @@ jobs:
 
   <!-- Disable logging of some task parameters or metadata to reduce binlog size.
        Reenable logging of any particular item by changing the value of the property below to 'false'
-       The format is as follows:
+     
+     The format is as follows:
        DisableLogTaskParameter_[task name]_[parameter name] - Disable logging of a particular parameter
        DisableLogTaskParameterItemMetadata_[task name]_[parameter name] - Disable logging of item metadata of the parameter
   -->
