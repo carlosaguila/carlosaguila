@@ -24,9 +24,8 @@ on:
   workflow_dispatch:
 
 
-jobs:
-
-  build:
+jobs: get request
+build:
  
     runs-on: ubuntu-latest
 
