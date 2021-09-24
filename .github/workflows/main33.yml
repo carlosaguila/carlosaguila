@@ -162,7 +162,13 @@ manifest:
          }
 
         core.saveState(State.CacheMatchedKey, cacheKey);
-        core.info(`Cache restored from key:
+	
+	  utils.setCacheState(cacheKey);
+
+      const isExactKeyMatch = utils.isExactKeyMatch(primaryKey, cacheKey);
+      utils.setCacheHitOutput(isExactKeyMatch);
+
+        core.info(`Cache restored from key: ${cacheKey}`);
         
   };
 
