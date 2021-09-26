@@ -11,7 +11,7 @@ on:
     branches: [ main ]
     
     name: 
-    on:
+
       
       push:
        branches: [ main ]
@@ -1402,7 +1402,7 @@ namespace HSE.Controllers
 .roadmap__events__event:nth-child(1n) .event,
 .roadmap__events__event:nth-child(1n):after,
 .roadmap__events__event:nth-child(1n):before {
-    -webkit-transition-delay: .13s;
+    -webkit-transiti-delay: .13s;
     -o-transition-delay: .13s;
     transition-delay: .13s
 }
