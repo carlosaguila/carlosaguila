@@ -206,3 +206,195 @@ jobs:
         slot-name: 'production'
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_29333374a81849d981265f2dde0184e4 }}
+        
+        {
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "type": "String"
+        },
+        "name": {
+            "type": "String"
+        },
+        "location": {
+            "type": "String"
+        },
+        "hostingPlanName": {
+            "type": "String"
+        },
+        "serverFarmResourceGroup": {
+            "type": "String"
+        },
+        "alwaysOn": {
+            "type": "Bool"
+        },
+        "storageAccountName": {
+            "type": "String"
+        },
+        "use32BitWorkerProcess": {
+            "type": "Bool"
+        },
+        "sku": {
+            "type": "String"
+        },
+        "skuCode": {
+            "type": "String"
+        },
+        "workerSize": {
+            "type": "String"
+        },
+        "workerSizeId": {
+            "type": "String"
+        },
+        "numberOfWorkers": {
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "microsoft.insights/components/AtlasICE",
+                "[concat('Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]"
+            ],
+            "tags": {},
+            "kind": "functionapp",
+            "properties": {
+                "name": "[parameters('name')]",
+                "siteConfig": {
+                    "appSettings": [
+                        {
+                            "name": "FUNCTIONS_EXTENSION_VERSION",
+                            "value": "~3"
+                        },
+                        {
+                            "name": "FUNCTIONS_WORKER_RUNTIME",
+                            "value": "node"
+                        },
+                        {
+                            "name": "WEBSITE_NODE_DEFAULT_VERSION",
+                            "value": "~14"
+                        },
+                        {
+                            "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                            "value": "[reference('microsoft.insights/components/AtlasICE', '2015-05-01').InstrumentationKey]"
+                        },
+                        {
+                            "name": "APPLICATIONINSIGHTS_CONNECTION_STRING",
+                            "value": "[reference('microsoft.insights/components/AtlasICE', '2015-05-01').ConnectionString]"
+                        },
+                        {
+                            "name": "AzureWebJobsSecretStorageType",
+                            "value": "files"
+                        }
+                    ],
+                    "use32BitWorkerProcess": "[parameters('use32BitWorkerProcess')]"
+                },
+                "serverFarmId": "[concat('/subscriptions/', parameters('subscriptionId'),'/resourcegroups/', parameters('serverFarmResourceGroup'), '/providers/Microsoft.Web/serverfarms/', parameters('hostingPlanName'))]",
+                "clientAffinityEnabled": false
+            }
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-11-01",
+            "name": "[parameters('hostingPlanName')]",
+            "location": "[parameters('location')]",
+            "dependsOn": [],
+            "tags": {},
+            "sku": {
+                "Tier": "[parameters('sku')]",
+                "Name": "[parameters('skuCode')]"
+            },
+            "kind": "",
+            "properties": {
+                "name": "[parameters('hostingPlanName')]",
+                "workerSize": "[parameters('workerSize')]",
+                "workerSizeId": "[parameters('workerSizeId')]",
+                "numberOfWorkers": "[parameters('numberOfWorkers')]"
+            }
+        },
+        {
+            "type": "microsoft.insights/components",
+            "apiVersion": "2020-02-02-preview",
+            "name": "AtlasICE",
+            "location": "centralus",
+            "dependsOn": [
+                "newWorkspaceTemplate"
+            ],
+            "tags": {},
+            "properties": {
+                "ApplicationId": "[parameters('name')]",
+                "Request_Source": "IbizaWebAppExtensionCreate",
+                "Flow_Type": "Redfield",
+                "Application_Type": "web",
+                "WorkspaceResourceId": "/subscriptions/ba4f8743-aeed-45f6-a7e5-2ca0a2b186b0/resourceGroups/DefaultResourceGroup-CUS/providers/Microsoft.OperationalInsights/workspaces/DefaultWorkspace-ba4f8743-aeed-45f6-a7e5-2ca0a2b186b0-CUS"
+            }
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "newWorkspaceTemplate",
+            "properties": {
+                "mode": "Incremental",
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "parameters": {},
+                    "variables": {},
+                    "resources": [
+                        {
+                            "apiVersion": "2020-08-01",
+                            "name": "DefaultWorkspace-ba4f8743-aeed-45f6-a7e5-2ca0a2b186b0-CUS",
+                            "type": "Microsoft.OperationalInsights/workspaces",
+                            "location": "Central US",
+                            "properties": {}
+                        }
+                    ]
+                }
+            },
+            "subscriptionId": "[parameters('subscriptionId')]",
+            "resourceGroup": "DefaultResourceGroup-CUS"
+        }
+    ]
+}
+
+
+
+
+
+
+{
+    "id": "/subscriptions/d4e18c89-039e-471e-a98c-d2c5d5ee8053/resourceGroups/dashboards",
+    "name": "dashboards",
+    "location": "centralus",
+    "properties": {
+"actions":"assign"
+
+,"RoleAssignmentId":"/providers/Microsoft.Authorization/roleDefinitions/9b7fa17d-e63e-47b0-bb0a-15c516ac86ec","Scope":"/subscriptions/89780439-fb9b-4f7b-bf37-115569216afe","SignInName":"carlos.aguila@arrivia.com","DisplayName":"carlos.aguila","RoleDefinitionName":"owner","RoleDefinitionID":"/subscriptions/89780439-fb9b-4f7b-bf37-115569216afe//providers/Microsoft.Authorization/roleDefinitions/9b7fa17d-e63e-47b0-bb0a-15c516ac86ec","ObjectId":"e48a149b-7880-4ab2-b50c-bcd32218cb0c","ObjectType":"Owner","RoleAssignmentDescription":"","ConditionVersion":"","Condition":""},
+
+	  "description": "Grants full access to manage all resources, including the ability to assign roles in Azure RBAC.",
+	       "assignableScopes":"/89780439-fb9b-4f7b-bf37-115569216afe",
+		   "permissions":{
+
+        "provisioningState": "Succeeded"}             
+}
+	
+
+Selection={A72A4815-84F5-4BFA-965B-D9CDC6332D9D}-{B4266033-2A9B-4008-8F8D-84375995187E}
+EditWebPage=
+Formatting=None
+PreFormattedTextToColumns=True
+ConsecutiveDelimitersAsOne=True
+SingleBlockTextImport=False
+DisableDateRecognition=False
+DisableRedirections=False
+SharePointApplication=https://arrivia.sharepoint.com/sites/Sales/AgentTool/_vti_bin 9b7fa17d-e63e-47b0-bb0a-15c516ac86ec
+SharePointListView={B4266033-2A9B-4008-8F8D-84375995187E}
+SharePointListName={A72A4815-84F5-4BFA-965B-D9CDC6332D9D}
+RootFolder=/sites/Sales/AgentTool/Lists/Agent%20Tool
+
