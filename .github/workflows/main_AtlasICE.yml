@@ -9,8 +9,8 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: '14.x' # set this to the node version to use (supports 8.x, 10.x, 12.x)
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: 'carlosaguila/carlosaguila/AtlasICE' 
+  NODE_VERSION: '14.x'
 
 jobs:
   build-and-deploy:
@@ -94,14 +94,14 @@ jobs:
     # Enter the start up command. For ex. dotnet run or dotnet run
     startup-command: # optional
     
-    - name: Azure SQL Deploy
+    - name: geoice.database.windows.net
   uses: Azure/sql-action@v1
   with:
-    # Name of the Azure SQL Server name, like Fabrikam.database.windows.net.
+    geoice.database.windows.net
     server-name: 
-    # The connection string, including authentication information, for the Azure SQL Server database.
+   erver=tcp:geoice.database.windows.net
     connection-string: 
-    # Path to DACPAC file to deploy
+   Server=tcp:geoice.database.windows.net,1433;Initial Catalog=geo;Persist Security Info=False;User ID=carlosaguila;Password={your_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
     dacpac-package: # optional
     # Path to SQL script file to deploy
     sql-file: # optional
@@ -112,9 +112,9 @@ jobs:
   uses: Azure/pipelines@v1
   with:
     # Fullyqualified URL to the Azure DevOps organization along with project name(eg, https://dev.azure.com/organization/project-name or https://server.example.com:8080/tfs/DefaultCollection/project-name)
-    azure-devops-project-url: 
-    # Name of the Azure Pipline to be triggered
-    azure-pipeline-name: 
+    azure-devops-project-url: https://dev.azure.com/carlosaguila0377/carlosaguila
+  
+    azure-pipeline-name: geoice/geo
     # Paste personal access token of the user as value of secret variable:AZURE_DEVOPS_TOKEN
     azure-devops-token: 
     
@@ -134,7 +134,7 @@ jobs:
     # Path to package or folder. *.zip or a folder to deploy
     package: # optional, default is .
     # Function app slot to be deploy to
-    slot-name: # optional
+    slot-name: AtlasICE
     # Publish profile (*.publishsettings) file contents with web deploy secrets
     publish-profile: # optional
     # Automatically look up Java function app artifact from pom.xml (default: 'false'). When this is set to 'true', 'package' should point to the folder of host.json.
