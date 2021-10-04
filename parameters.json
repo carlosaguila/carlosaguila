@@ -2,6 +2,7 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+ carlosaguila-patch-2
 
         "dashboards_1e516468_992f_4dac_bb87_34b2b6aeb19a_name": {
             "value": null
@@ -83,41 +84,52 @@
         },
         "applicationGatewayName": {
             "value": "getaway"
+=======
+        "subscriptionId": {
+            "value": "ba4f8743-aeed-45f6-a7e5-2ca0a2b186b0"
+ main
         },
-        "tier": {
-            "value": "Standard_v2"
+        "name": {
+            "value": "agentsguidebook"
         },
-        "skuSize": {
-            "value": "Standard_v2"
+        "location": {
+            "value": "Central US"
         },
-        "capacity": {
-            "value": 0
+        "hostingPlanName": {
+            "value": "ASP-NetworkWatcherRG-8a42"
         },
-        "subnetName": {
-            "value": "default"
+        "serverFarmResourceGroup": {
+            "value": "NetworkWatcherRG"
         },
-        "zones": {
-            "value": [
-                "3"
-            ]
+        "alwaysOn": {
+            "value": false
         },
-        "publicIpAddressName": {
-            "value": "aip"
+        "storageAccountName": {
+            "value": "storageaccountnetwo9533"
         },
         "sku": {
-            "value": "Standard"
+            "value": "Free"
         },
-        "allocationMethod": {
-            "value": "Static"
+        "skuCode": {
+            "value": "F1"
         },
-        "publicIpZones": {
-            "value": [
-                "3"
-            ]
+        "workerSize": {
+            "value": "0"
         },
+        "workerSizeId": {
+            "value": "0"
+        },
+        "numberOfWorkers": {
+            "value": "1"
+        },
+ carlosaguila-patch-2
         "autoScaleMaxCapacity": {
             "value": 10
 
+
+        "use32BitWorkerProcess": {
+            "value": true
+ main
         }
     }
 }
