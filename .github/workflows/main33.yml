@@ -1,13 +1,11 @@
 
 
 name: CI
-
-
 on:
- 
   push:
     branches: [ main ]
   pull_request:
+
     branches: [  ]
     
     name: "Atlas"
@@ -20,9 +18,21 @@ on:
    
           branches: [ main ]
 
+    branches: [ main ]
+    
+    name: 
+
+
+      
+      push:
+       branches: [ main ]
+      
+      pull_request:
+   
+          branches: [ main ]
+
 
   workflow_dispatch:
-
 
 jobs: get request
 build:
@@ -65,6 +75,41 @@ build:
   
      version: 
     
+
+    - name: Setup Go environment
+      uses: actions/setup-go@v2.1.4
+      with:
+    # The Go version to download (if necessary) and use. Supports semver spec and ranges.
+    go-version: # optional
+    # Whether to download only stable versions
+    stable: # optional, default is true
+    # Used to pull node distributions from go-versions.  Since there's a default, this is typically not supplied by the user.
+      token: # optional, default is ${{ github.token }}
+    
+      - name: Setup Node.js environment
+    uses: actions/setup-node@v2.4.0
+    with:
+    # Set always-auth in npmrc
+     always-auth: # optional, default is false
+    # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
+     node-version: # optional
+    # Target architecture for Node to use. Examples: x86, x64. Will use system architecture by default.
+     architecture: # optional
+    # Set this option if you want the action to check for the latest available version that satisfies the version spec
+     check-latest: # optional
+    # Optional registry to set up for auth. Will set the registry in a project level .npmrc and .yarnrc file, and set up auth to read in from env.NODE_AUTH_TOKEN
+     registry-url: # optional
+    # Optional scope for authenticating against scoped registries
+     scope: # optional
+    # Used to pull node distributions from node-versions.  Since there's a default, this is typically not supplied by the user.
+     token: # optional, default is ${{ github.token }}
+    # Used to specify a package manager for caching in the default directory. Supported values: npm, yarn, pnpm
+     cache: # optional
+    # Used to specify the path to a dependency file: package-lock.json, yarn.lock, etc. Supports wildcards or a list of file names for caching multiple dependencies.
+     cache-dependency-path: # optional
+    # Deprecated. Use node-version instead. Will not be supported after October 1, 2019
+     version: # optional
+
      steps:
      - uses: actions/checkout@v2
      - uses: actions/setup-node@v2
@@ -1368,7 +1413,11 @@ namespace HSE.Controllers
 .roadmap__events__event:nth-child(1n) .event,
 .roadmap__events__event:nth-child(1n):after,
 .roadmap__events__event:nth-child(1n):before {
+
     -webkit-transition-delay: .13s;
+
+    -webkit-transiti-delay: .13s;
+
     -o-transition-delay: .13s;
     transition-delay: .13s
 }
