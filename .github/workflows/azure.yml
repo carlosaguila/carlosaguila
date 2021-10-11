@@ -37,8 +37,10 @@ jobs:
 
 name: Build and deploy Node.js project to Azure Function App - AtlasICE
 
+(
 
   push:
+  
     branches:
       - main
   workflow_dispatch:
@@ -76,3 +78,4 @@ jobs:
         slot-name: 'production'
         package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_29333374a81849d981265f2dde0184e4 }}
+)
