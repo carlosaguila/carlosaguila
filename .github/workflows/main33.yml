@@ -2129,4 +2129,3 @@ class TermIndexTest extends TaxonomyTestBase {
   }
 
 }
-}
